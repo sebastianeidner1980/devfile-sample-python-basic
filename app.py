@@ -1,11 +1,17 @@
 from flask import Flask
+from flask import request
 import os
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def hello():
-    return "Hello World!"
+    if request.method == "POST":
+       data = request.get_json()
+       print(data)
+       return "Post"
+    else:
+      return request.method
 
 if __name__ == '__main__':
     port = os.environ.get('FLASK_PORT') or 8080
